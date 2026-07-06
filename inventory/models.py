@@ -15,14 +15,6 @@ class Warehouse(models.Model):
     def __str__(self):
         return self.nom
 
-    @property
-    def charge_actuelle(self):
-        return self.products.count()
-
-    @property
-    def capacite_restante(self):
-        return max(0, self.capacite - self.charge_actuelle)
-
 
 class Product(models.Model):
     class State(models.TextChoices):
@@ -53,15 +45,3 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.nom} ({self.get_state_display()})"
-
-    @property
-    def est_perime(self):
-        return (
-            self.state == self.State.PERIME
-            or self.date_expiration < timezone.localdate()
-        )
-
-    def actualiser_etat(self):
-        if self.date_expiration < timezone.localdate():
-            self.state = self.State.PERIME
-        return self.state
