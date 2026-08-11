@@ -59,7 +59,7 @@ class ProductViewSet(viewsets.ModelViewSet):
             produit.save(update_fields=["state"])
 
     @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])
-    def deplacer(self, request, pk=None):
+    def move(self, request, pk=None):
         product = self.get_object()
         self._actualiser_etat_si_perime(product)
         est_perime = (product.state == Product.State.PERIME or 

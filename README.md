@@ -261,6 +261,8 @@ paths:
               required: [warehouse_id]
               properties:
                 warehouse_id: { type: integer }
+            example:
+              warehouse_id: 2
       responses:
         '200': { description: Transfert réussi }
         '400': { description: Produit périmé ou règle métier violée }
